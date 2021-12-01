@@ -4,11 +4,14 @@ open Microsoft.CodeAnalysis
 open System.Threading
 open Microsoft.CodeAnalysis.CSharp.Syntax
 open FSharp.Compiler.Text
-open FSharp.Compiler.SyntaxTree
-open FSharp.Compiler.SyntaxTreeOps
-open FSharp.Compiler.Range
+//open FSharp.Compiler.SyntaxTree
+//open FSharp.Compiler.SyntaxTreeOps
+//open FSharp.Compiler.Range
 open FSharp.Compiler.Text.SourceText
 open FSharp.Compiler.Interactive
+open FSharp.Compiler.Syntax
+open FSharp.Compiler.Text
+open FSharp.Compiler.Text.Range
 
 [<AutoOpen>]
 module ExprIdentUtils = 
@@ -85,14 +88,14 @@ module SynConst =
 module SynPat = 
 
     let getIdentAsReturn getLeft returnType synPat = 
-        let rec loop synPat = 
+        let rec loop (synPat:SynPat) = 
             match synPat with 
             | SynPat.Attrib (a,_,_) -> loop a
             | SynPat.Typed (a,_, _) -> loop a
             | SynPat.LongIdent (a,_,_,_,_,_) -> returnType a
             | SynPat.Paren (a, _) -> loop a
-            | SynPat.Named (a,b,c,d,e)  when getLeft ->  returnType <| LongIdentWithDots ([b], []) // this is for parameters (foo = foobar), ignore foobar
-            | SynPat.Named (a,_,_,_,_) -> loop a // this is for parameters (foo = foobar), ignore foo
+            //| SynPat.Named (a,b,c,d)  when getLeft ->  returnType <| LongIdentWithDots ([b], []) // this is for parameters (foo = foobar), ignore foobar //TODO translate to FCS 41.0.1 from 38.0.2
+            //| SynPat.Named (a,_,_,_) -> loop a // this is for parameters (foo = foobar), ignore foo 
             | x -> printfn "%A" x; sprintf "Wrong type: %A" x |> failwith
         loop synPat  
 
@@ -108,7 +111,7 @@ module SynPat =
             | SynPat.Typed (a, b, c) -> Some b
             | SynPat.LongIdent (a,_,_,_,_,_) -> None
             | SynPat.Paren (a, _) -> loop a
-            | SynPat.Named (a,_,_,_,_) -> loop a // this is for parameters (foo = foobar), ignore foo
+            //| SynPat.Named (a,_,_,_,_) -> loop a // this is for parameters (foo = foobar), ignore foo//TODO translate to FCS 41.0.1 from 38.0.2
             | x -> printfn "%A" x; sprintf "Wrong type: %A" x |> failwith
         loop synPat  
 

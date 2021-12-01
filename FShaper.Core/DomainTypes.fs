@@ -4,7 +4,9 @@
 // The tree also does not require some things, most importantly a range - Fantomas is used to format the code
 
 namespace FShaper.Core
-open FSharp.Compiler.SyntaxTree
+
+open FSharp.Compiler.Syntax
+//open FSharp.Compiler.SyntaxTree
 
 type Trivia<'a> =
     | NoTrivia

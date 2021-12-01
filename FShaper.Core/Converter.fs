@@ -1,4 +1,5 @@
 module FShaper.Core.Converter
+
 open FSharp.Compiler.SyntaxTree
 open FSharp.Compiler.Range
 open FSharp.Compiler.XmlDoc
@@ -12,6 +13,8 @@ open System.Text
 open Microsoft.CodeAnalysis.CSharp.Syntax
 open Fantomas.SourceOrigin
 open FSharp.Compiler.SourceCodeServices
+open FSharp.Compiler.Syntax
+open FSharp.Compiler.Text
 
 module FormatOutput = 
 
