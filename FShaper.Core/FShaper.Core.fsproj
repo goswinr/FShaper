@@ -1,13 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net50</TargetFramework>
   </PropertyGroup>
+  <!--
   <PropertyGroup>
     <DisableAutoSetFscCompilerPath>true</DisableAutoSetFscCompilerPath>
     <DotnetFscCompilerPath />
     <FscToolPath>/Library/Frameworks/Mono.framework/Versions/Current/Commands</FscToolPath>
     <FscToolExe>fsharpc</FscToolExe>
   </PropertyGroup>
+  -->
   <ItemGroup>
     <Compile Include="DomainTypes.fs" />
     <Compile Include="TreeOperations.fs" />

@@ -27,7 +27,7 @@ module Android =
             else [x])
         |> fun x -> File.WriteAllLines (path, x)   
 
-    let updateProjectJsonFile androidProj = 
+    let updateProjectJsonFile (androidProj:string) = 
         printfn "%s" <| Path.GetDirectoryName androidProj
         let projectJson = Path.Combine(Path.GetDirectoryName androidProj, "package.json")
         if File.Exists projectJson then 
@@ -54,7 +54,7 @@ module Android =
             | [x] -> Some x
             | _ -> None
 
-    let removeCsResourceFile androidProj = 
+    let removeCsResourceFile (androidProj:string) = 
         let resource = Path.Combine(Path.GetDirectoryName androidProj, "Resources", "Resource.designer.fs")
         if File.Exists resource then 
             File.Delete(resource)
@@ -122,11 +122,11 @@ let getCoreProj =
         (path.Contains "ios" || path.Contains "android") |> not)
 
 
-let updateCoreProj coreProj = 
+let updateCoreProj (coreProj:string) = 
     let fsFiles = findFsFiles (Path.GetDirectoryName coreProj)
     let xaml = findFiles (fun x -> x.EndsWith ".xaml") (Path.GetDirectoryName coreProj)
     
-    let xmalPairToXml (xaml, xamlFs) = 
+    let xmalPairToXml (xaml:string, xamlFs:string) = 
         [
             yield sprintf """<EmbeddedResource Include="%s" />""" <| Path.GetFileName xaml
             yield sprintf """<Compile Include="%s">""" <| Path.GetFileName xamlFs
@@ -134,7 +134,7 @@ let updateCoreProj coreProj =
             yield  "</Compile>"     
         ]
 
-    let fsXmlCompile fsFile = 
+    let fsXmlCompile (fsFile:string) = 
         sprintf """<Compile Include="%s" />""" <| Path.GetFileName fsFile
 
 

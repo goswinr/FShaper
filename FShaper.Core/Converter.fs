@@ -489,7 +489,7 @@ module FormatOutput =
                         removedFields 
                         |> List.map (function | Choice1Of2 x -> x | Choice2Of2 x -> x |> fst)
 
-                    let isNameMatch fieldIdent = 
+                    let isNameMatch (fieldIdent:string) = 
                         names |> List.exists (fun x -> x.Contains fieldIdent)
 
                     fields
@@ -509,7 +509,7 @@ module FormatOutput =
                         removedFields 
                         |> List.map (function | Choice1Of2 x -> x | Choice2Of2 x -> x |> fst)
 
-                    let isNameMatch fieldIdent = 
+                    let isNameMatch (fieldIdent:string) = 
                         names |> List.exists (fun x -> x.Contains fieldIdent)
 
                     properties
@@ -722,7 +722,7 @@ let applyIndentationToComments (line:string) (comment:string) =
         let x = x.Replace("/*", "(*").Replace("*/", "*)").TrimEnd()
         prefix + x)
     
-let insertTriviaIntoCode name (comment: string) linesOfCode =
+let insertTriviaIntoCode (name:string) (comment: string) linesOfCode =
     linesOfCode
     |> List.fold (fun (matched, acc) (hasComment, line) ->
        if not matched then
@@ -913,7 +913,7 @@ let runWithConfig validateCode (input:string) =
     nodes
     |> Option.bind(fun x ->  x |> Seq.fold (visitor.ParseSyntax) None)
     |> Option.map toFsharpSyntaxTree
-//    |> Option.map(fun x -> printfn "------------------------------First Parse--------------------:\n%A\n--------------------" x; x)
+    // |> Option.map(fun x -> printfn "------------------------------First Parse--------------------:\n%A\n--------------------" x; x)
     |> Option.map (removeFsharpIn DefaultNames.file)
     |> Option.map (toFsharpString validateCode config) 
     |> function 

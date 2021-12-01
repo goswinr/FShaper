@@ -1,14 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>net50</TargetFramework>
     <RootNamespace>FSharper.Tests</RootNamespace>
   </PropertyGroup>
+  <!--
   <PropertyGroup>
     <DisableAutoSetFscCompilerPath>true</DisableAutoSetFscCompilerPath>
     <DotnetFscCompilerPath />
     <FscToolPath>/Library/Frameworks/Mono.framework/Versions/Current/Commands</FscToolPath>
     <FscToolExe>fsharpc</FscToolExe>
   </PropertyGroup>
+  -->
   <ItemGroup>
     <Compile Include="CodeFormatter.fs" />
     <Compile Include="StatementTests.fs" />

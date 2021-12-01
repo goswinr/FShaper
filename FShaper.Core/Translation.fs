@@ -200,7 +200,7 @@ module TreeOps =
            | _ -> []
            ) expr
 
-    let rec (|TypeNameContains|_|) text v = 
+    let rec (|TypeNameContains|_|) (text:string) v = 
         match v with 
         | SynType.LongIdent s when (joinLongIdentWithDots s).Contains text -> Some ()
         | SynType.App (a,b,c,d,e,f,g) -> 
@@ -655,7 +655,7 @@ module TreeOps =
             match tree with 
             | Expr.LongIdent (a, LongIdentWithDots(b, r)) -> 
                 let firstIdent = (List.head b).idText
-                methodNames |> Seq.tryFind (fun (className, name) -> firstIdent.Contains name )
+                methodNames |> Seq.tryFind (fun (className, name:string) -> firstIdent.Contains name )
                 |> Option.map (fun (className: string option, _) -> 
                     let replacement = 
                         match className with 
